@@ -107,7 +107,7 @@ export class UserRegistrationService {
           }),
         }
       )
-      .pipe(catchError(this.handleError));
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
   // Making the api call to remove a movie from favorite list
@@ -119,7 +119,7 @@ export class UserRegistrationService {
           Authorization: 'Bearer ' + token,
         }),
       })
-      .pipe(catchError(this.handleError));
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
   // Making the api call for the edit user endpoint
@@ -144,7 +144,7 @@ export class UserRegistrationService {
           Authorization: 'Bearer ' + token,
         }),
       })
-      .pipe(catchError(this.handleError));
+      .pipe(map(this.extractResponseData), catchError(this.handleError));
   }
 
   // Non-API related utility functions
