@@ -35,6 +35,6 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
     FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
