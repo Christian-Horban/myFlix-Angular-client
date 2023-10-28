@@ -158,7 +158,9 @@ export class UserRegistrationService {
       console.error('Some error occurred:', error.error.message);
     } else {
       console.error(
-        `Error Status code ${error.status}, ` + `Error body is: ${error.error}`
+        `Error Status code ${error.status}, Error body is: ${JSON.stringify(
+          error.error
+        )}`
       );
     }
     return throwError('Something bad happened; please try again later.');
