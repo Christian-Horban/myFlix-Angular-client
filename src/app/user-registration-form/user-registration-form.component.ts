@@ -1,14 +1,8 @@
-// src/app/user-registration-form/user-registration-form.component.ts
 import { Component, OnInit, Input } from '@angular/core';
-
-// You'll use this import to close the dialog on success
 import { MatDialogRef } from '@angular/material/dialog';
-
-// This import brings in the API calls we created in 6.2
-import { UserRegistrationService } from '../fetch-api-data.service';
-
-// This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserRegistrationService } from '../fetch-api-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-registration-form',
@@ -21,7 +15,8 @@ export class UserRegistrationFormComponent implements OnInit {
   constructor(
     public fetchApiData: UserRegistrationService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -30,20 +25,20 @@ export class UserRegistrationFormComponent implements OnInit {
   registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe(
       (result) => {
-        console.log('Success response:', result);
-        this.dialogRef.close();
-        this.snackBar.open(
-          `User ${result.Username} registered successfully!`,
-          'OK',
-          {
-            duration: 2000,
-          }
-        );
+        this.dialogRef.close(); // This will close the modal on success!
+        this.snackBar.open('user registered successfully!', 'OK', {
+          duration: 2000,
+        });
+
+        // log user in and navigate to movies
+        this.fetchApiData.userLogin(this.userData).subscribe((result) => {
+          localStorage.setItem('user', JSON.stringify(result.user));
+          localStorage.setItem('token', result.token);
+          this.router.navigate(['movies']);
+        });
       },
-      (error) => {
-        console.log('Error response:', error);
-        // Adjust this line to display the error properly, if you know the structure
-        this.snackBar.open(error.message || 'Registration failed', 'OK', {
+      (response) => {
+        this.snackBar.open(response, 'OK', {
           duration: 2000,
         });
       }
