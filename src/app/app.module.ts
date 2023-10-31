@@ -23,6 +23,9 @@ import { NavbarComponent } from './navigation/navigation.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
+/**
+ * Application routes configuration.
+ */
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'movies', component: MovieCardComponent },
@@ -30,6 +33,10 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
 ];
 
+/**
+ * Main module for the myFlix Angular client application.
+ * It orchestrates the overall structure of the application.
+ */
 @NgModule({
   declarations: [
     AppComponent,
